@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: ms-flight-information
+
+# ACTUATOR ENDPOINTS
+management:
+  security:
+    enabled: false
+  context-path: /actuator
+  endpoints:
+    web:
+      exposure:
+        include: '*'
