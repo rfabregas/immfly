@@ -1,0 +1,50 @@
+[{
+  "ident" : "IBB653" ,
+  "faFlightID" : "IBB653-1581399936-airline-0136" ,
+  "airline" : "IBB" ,
+  "airlineIata" : "NT" ,
+  "flightNumber" : "653" ,
+  "tailNumber" : "EC-MYT" ,
+  "type" : "Form_Airline" ,
+  "codeShares" : "IBE123" ,
+  "blocked" : false ,
+  "diverted" : false ,
+  "cancelled" : false ,
+  "origin" : {
+    "code" : "GCXO" ,
+    "city" : "Tenerife" ,
+    "alternateIdent" : "TFN" ,
+    "airportName" : "Tenerife North (Los Rodeos)"
+  },
+  "destination" : {
+    "code" : "GCGM" ,
+    "city" : "La Gomera" ,
+    "alternateIdent" : "GMZ" ,
+    "airportName" : "La Gomera"
+  }
+},
+  {
+    "ident" : "IBB653" ,
+    "faFlightID" : "IBB653-1581399936-airline-0136" ,
+    "airline" : "IBB" ,
+    "airlineIata" : "NT" ,
+    "flightNumber" : "653" ,
+    "tailNumber" : "EC-MYT" ,
+    "type" : "Form_Airline" ,
+    "codeShares" : "IBE123" ,
+    "blocked" : false ,
+    "diverted" : false ,
+    "cancelled" : false ,
+    "origin" : {
+      "code" : "GCXO" ,
+      "city" : "Tenerife" ,
+      "alternateIdent" : "TFN" ,
+      "airportName" : "Tenerife North (Los Rodeos)"
+    },
+    "destination" : {
+      "code" : "GCGM" ,
+      "city" : "La Gomera" ,
+      "alternateIdent" : "GMZ" ,
+      "airportName" : "La Gomera"
+    }
+  }]
