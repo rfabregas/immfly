@@ -1,8 +1,10 @@
 package com.immfly.backend.ms.flight.client.dto.response;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class FlightInformationResponse {
 
   private String ident;

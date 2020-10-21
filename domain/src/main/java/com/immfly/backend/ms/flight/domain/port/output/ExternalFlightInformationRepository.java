@@ -7,8 +7,8 @@ import java.util.List;
 @DomainRepository
 public interface ExternalFlightInformationRepository {
 
-  List<FlightInformation> retrieveFlightInformation();
+  List<FlightInformation> retrieveExternalFlightInformation();
 
-  void save(FlightInformation flightInformation);
+  void save(List<FlightInformation> flightInformationList);
 
 }

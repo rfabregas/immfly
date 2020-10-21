@@ -5,10 +5,10 @@ import com.immfly.backend.ms.flight.domain.shared.annotation.DomainRepository;
 import com.immfly.backend.ms.flight.domain.shared.annotation.Interactor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 
-@SpringBootApplication
 @ComponentScan(
     basePackages = {"com.immfly.backend.ms.flight.*"},
     basePackageClasses = {
@@ -17,6 +17,8 @@ import org.springframework.context.annotation.FilterType;
     },
     includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = {
         DomainRepository.class, Interactor.class}))
+@EnableCaching
+@SpringBootApplication
 public class FlightInformationApplication {
 
   public static void main(String[] args) {
