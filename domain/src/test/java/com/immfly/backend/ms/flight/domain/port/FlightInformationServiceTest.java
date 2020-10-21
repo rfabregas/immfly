@@ -22,6 +22,7 @@ class FlightInformationServiceTest {
   private FlightInformationRepository flightInformationRepository;
   @Mock
   private ExternalFlightInformationRepository externalFlightInformationRepository;
+
   private FlightInformationService flightInformationService;
   private List<FlightInformation> flightInformationList;
 
@@ -55,7 +56,6 @@ class FlightInformationServiceTest {
   }
 
   private List<FlightInformation> generateFlightInformationMock() {
-
     AirportInformation airport = AirportInformation.builder()
         .code("GCGM")
         .city("La Gomera")

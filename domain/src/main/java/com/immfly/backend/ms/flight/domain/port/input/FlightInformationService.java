@@ -32,10 +32,15 @@ public class FlightInformationService implements GetFlightInformationUseCase {
     }
 
     return flights.stream()
-        .filter(flight -> tailNumber.equalsIgnoreCase(flight.getTailNumber()) && flightNumber
-            .equalsIgnoreCase(flight.getFlightNumber()))
+        .filter(flight -> filterByTailNumberAndFlightNumber(tailNumber, flightNumber, flight))
         .collect(
             Collectors.toList());
+  }
+
+  private boolean filterByTailNumberAndFlightNumber(String tailNumber, String flightNumber,
+      FlightInformation flight) {
+    return tailNumber.equalsIgnoreCase(flight.getTailNumber()) && flightNumber
+        .equalsIgnoreCase(flight.getFlightNumber());
   }
 
   @Override
@@ -45,4 +50,5 @@ public class FlightInformationService implements GetFlightInformationUseCase {
     externalFlightInformationRepository
         .save(flightInformationList);
   }
+
 }

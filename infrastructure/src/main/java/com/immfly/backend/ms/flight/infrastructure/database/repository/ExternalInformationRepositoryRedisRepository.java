@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -22,6 +22,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -48,25 +49,25 @@ public class ExternalInformationRepositoryRedisRepository implements
   @Cacheable(value = "externalFlightInformation")
   public List<FlightInformation> retrieveExternalFlightInformation() {
 
-    List<FlightInformation> retrievedFlightInformation = new ArrayList<>();
-    Map<String, String> test = hashOperations.entries(EXTERNAL_FLIGHT_INFORMATION);
+    List<FlightInformation> retrievedFlightInformations = new ArrayList<>();
+    Map<String, String> persistedExternalFlightInformations = hashOperations
+        .entries(EXTERNAL_FLIGHT_INFORMATION);
     try {
-      if (!test.isEmpty()) {
-        Map.Entry<String, String> entry = test.entrySet().iterator().next();
-        String jsonAsString = entry.getValue();
+      if (!persistedExternalFlightInformations.isEmpty()) {
+        Map.Entry<String, String> persistedExternalFlightInformation = persistedExternalFlightInformations
+            .entrySet().iterator()
+            .next();
+        String externalFlightInformation = persistedExternalFlightInformation.getValue();
 
-        retrievedFlightInformation = convertStringtoList(jsonAsString);
+        retrievedFlightInformations = convertStringToList(externalFlightInformation);
       } else {
-        retrievedFlightInformation = generateFlightInformationMock();
+        retrievedFlightInformations = generateFlightInformationMock();
       }
 
     } catch (IOException e) {
-      e.printStackTrace();
+      log.error(e.getMessage());
     }
-    redisTemplate.expire(EXTERNAL_FLIGHT_INFORMATION, 20, TimeUnit.SECONDS);
-    return retrievedFlightInformation;
-
-
+    return retrievedFlightInformations;
   }
 
   @Override
@@ -80,7 +81,7 @@ public class ExternalInformationRepositoryRedisRepository implements
         hashOperations.put(EXTERNAL_FLIGHT_INFORMATION, UUID.randomUUID().toString(), jsonAsString);
 
       } catch (JsonProcessingException e) {
-        e.printStackTrace();
+        log.error(e.getMessage());
       }
     }
   }
@@ -89,7 +90,7 @@ public class ExternalInformationRepositoryRedisRepository implements
     return objectMapper.writeValueAsString(object);
   }
 
-  private List<FlightInformation> convertStringtoList(String json) throws JsonProcessingException {
+  private List<FlightInformation> convertStringToList(String json) throws JsonProcessingException {
     return objectMapper.readValue(json, new TypeReference<List<FlightInformation>>() {
     });
   }

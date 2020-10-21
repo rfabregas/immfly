@@ -12,11 +12,13 @@ import java.util.Map;
 import java.util.UUID;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -46,7 +48,7 @@ public class FlightInformationRedisRepository implements FlightInformationReposi
         flightInformationList = convertStringtoList(entry.getValue());
 
       } catch (JsonProcessingException e) {
-        e.printStackTrace();
+        log.error(e.getMessage());
       }
     }
     return flightInformationList;
@@ -58,7 +60,7 @@ public class FlightInformationRedisRepository implements FlightInformationReposi
       String json = objectMapper.writeValueAsString(flightInformationList);
       hashOperations.put(TABLE_NAME, UUID.randomUUID().toString(), json);
     } catch (JsonProcessingException e) {
-      e.printStackTrace();
+      log.error(e.getMessage());
     }
     return flightInformationList;
   }
@@ -66,10 +68,6 @@ public class FlightInformationRedisRepository implements FlightInformationReposi
   @Override
   public void delete() {
     initHashOperations();
-  }
-
-  private String convertObjectToString(Object object) throws JsonProcessingException {
-    return objectMapper.writeValueAsString(object);
   }
 
   private List<FlightInformation> convertStringtoList(String json) throws JsonProcessingException {
